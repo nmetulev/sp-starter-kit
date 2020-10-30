@@ -16,8 +16,10 @@ import { PersonalTasks } from './components/PersonalTasks';
 import { IPersonalTasksProps } from './components/IPersonalTasksProps';
 
 // import the providers at the top of the page
-import { Providers, SharePointProvider } from '@microsoft/mgt/dist/commonjs';
+import { Providers, SharePointProvider } from '@microsoft/mgt';
 import { PropertyPaneHorizontalRule } from '@microsoft/sp-property-pane';
+
+import {TasksSource} from '@microsoft/mgt'
 
 export interface IPersonalTasksWebPartProps {
   /**
@@ -27,7 +29,7 @@ export interface IPersonalTasksWebPartProps {
   /**
    * Tasks' data source - Planner or ToDo
    */
-  dataSource: 'todo' | 'planner';
+  dataSource: TasksSource;
   /**
    * Flag if editing is allowed. Default is false.
    */
@@ -135,14 +137,14 @@ export default class PersonalTasksWebPart extends BaseClientSideWebPart<IPersona
                 }),
                 PropertyPaneTextField('initialBucketId', {
                   label: strings.InitialBucketId,
-                  disabled: this.properties.dataSource === 'todo'
+                  disabled: this.properties.dataSource === TasksSource.todo
                 }),
                 PropertyPaneTextField('targetId', {
                   label: strings.TargetId
                 }),
                 PropertyPaneTextField('targetBucketId', {
                   label: strings.TargetBucketId,
-                  disabled: this.properties.dataSource === 'todo'
+                  disabled: this.properties.dataSource === TasksSource.todo
                 }),
               ]
             }
