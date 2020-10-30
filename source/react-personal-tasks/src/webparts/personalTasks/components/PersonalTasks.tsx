@@ -1,12 +1,10 @@
-import * as React from 'react';
-import styles from './PersonalTasks.module.scss';
-import { IPersonalTasksProps } from './IPersonalTasksProps';
+import { Tasks } from '@microsoft/mgt-react';
 import { DisplayMode } from '@microsoft/sp-core-library';
 import * as strings from 'PersonalTasksWebPartStrings';
+import * as React from 'react';
+import { IPersonalTasksProps } from './IPersonalTasksProps';
+import styles from './PersonalTasks.module.scss';
 
-//
-// declaration to use MGT components
-//
 declare global {
   namespace JSX {
     interface IntrinsicElements {
@@ -14,7 +12,6 @@ declare global {
     }
   }
 }
-
 
 export class PersonalTasks extends React.Component<IPersonalTasksProps, {}> {
   public render(): React.ReactElement<IPersonalTasksProps> {
@@ -54,29 +51,14 @@ export class PersonalTasks extends React.Component<IPersonalTasksProps, {}> {
             </div>
           </div>
         }
-        <mgt-tasks
-          data-source={dataSource}
-          initial-id={initialId}
-          initial-bucket-id={initialBucketId}
-          target-id={targetId}
-          target-bucket-id={targetBucketId}
-          ref={el => {
-            if (el) { // setting read-only and hide-header attributes if needed
-              if (!allowEditing) {
-                el.setAttribute('read-only', '');
-              }
-              else {
-                el.removeAttribute('read-only');
-              }
-              if (hideHeader) {
-                el.setAttribute('hide-header', '');
-              }
-              else {
-                el.removeAttribute('hide-header');
-              }
-            }
-          }}
-        ></mgt-tasks>
+        <Tasks
+          dataSource={dataSource}
+          initialId={initialId}
+          initialBucketId={initialBucketId}
+          targetId={targetId}
+          targetBucketId={targetBucketId}
+          readOnly={!allowEditing}
+          hideHeader={hideHeader}/>
       </div>
     );
   }
